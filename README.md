@@ -26,7 +26,7 @@ Required packages: autoconf, automake, libtool, make, cc (gcc or misc)
 
 ```console
 $ sh autogen.sh
-$ ./configure --prefix=/usr/local/
+$ ./configure --prefix=/usr/local
 $ make
 $ sudo make install
 ```
@@ -47,6 +47,8 @@ or:
 $ /usr/local/bin/syslog-redirect syslog-aware-command
 ...
 ```
+
+Run with some options:
 
 ```console
 $ SYSLOG_REDIRECT_LOG_LEVEL=7 \
