@@ -13,6 +13,12 @@ This is a `$LD_PRELOAD`-able library and a wrapper script to
 run a command with the special `syslog`(3) function for redirecting
 syslog output to the standard error (stderr).
 
+Use case
+---------------------------------------------------------------------
+
+Run a syslog-aware service in a container environment (e.g., Docker)
+without a syslog daemon or the /dev/log.
+
 How to build
 ---------------------------------------------------------------------
 
