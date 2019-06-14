@@ -1,4 +1,4 @@
-Prelodable library to redirect syslog(3) output to stderr
+Preloadable library to redirect syslog(3) output to stderr
 ======================================================================
 
   * Copyright (c) 2019 SATOH Fumiyasu @ OSS Technology Corp., Japan
