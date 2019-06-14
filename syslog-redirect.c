@@ -14,7 +14,7 @@
 #include <syslog.h>
 
 static int Level = LOG_WARNING;
-static const char *Ident = NULL;
+static const char *Identity = NULL;
 
 static const char *Pid = NULL;
 static const char *Facility = NULL;
@@ -103,8 +103,8 @@ static void init(const char *ident, int option, int facility)
     Level = atoi(level_env);
   }
 
-  if (getenv("SYSLOG_REDIRECT_PRINT_IDENT")) {
-    Ident = ident;
+  if (getenv("SYSLOG_REDIRECT_PRINT_IDENTITY")) {
+    Identity = ident;
   }
 
   if (getenv("SYSLOG_REDIRECT_PRINT_PID")) {
@@ -133,8 +133,8 @@ void syslog(int priority, const char *format, ...)
     return;
   }
 
-  if (Ident) {
-    fputs(Ident, stderr);
+  if (Identity) {
+    fputs(Identity, stderr);
     fputs(": ", stderr);
   }
   if (Pid) {
