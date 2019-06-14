@@ -44,7 +44,7 @@ $ LD_PRELOAD=/usr/local/lib/syslog-redirect.so syslog-aware-command
 or:
 
 ```console
-$ /usr/local/bin/syslog-redirect syslog-aware-command-name
+$ /usr/local/bin/syslog-redirect syslog-aware-command
 ...
 ```
 
@@ -54,7 +54,7 @@ $ SYSLOG_REDIRECT_LOG_LEVEL=7 \
   SYSLOG_REDIRECT_PRINT_FACILITY=set \
   SYSLOG_REDIRECT_PRINT_LEVEL=set \
   SYSLOG_REDIRECT_APPEND_LF=set \
-  /usr/local/bin/syslog-redirect syslog-aware-command-name
+  /usr/local/bin/syslog-redirect syslog-aware-command
 ...
 ```
 
