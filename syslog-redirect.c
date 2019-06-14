@@ -20,6 +20,7 @@ static const char *Pid = NULL;
 static const char *Facility = NULL;
 
 static const char *PrintLevelP = NULL;
+static const char *AppendLFP = NULL;
 static const char *FlushLogP = NULL;
 
 static const char *facility_string(int facility)
@@ -115,6 +116,7 @@ static void init(const char *ident, int option, int facility)
   
 
   PrintLevelP = getenv("SYSLOG_REDIRECT_PRINT_LEVEL");
+  AppendLFP = getenv("SYSLOG_REDIRECT_APPEND_LF");
   FlushLogP = getenv("SYSLOG_REDIRECT_FLUSH_LOG");
 }
 
@@ -156,6 +158,9 @@ void syslog(int priority, const char *format, ...)
   (void)vfprintf(stderr, format, arg_ptr);
   va_end(arg_ptr);
 
+  if (AppendLFP) {
+    fputc('\n', stderr);
+  }
   if (FlushLogP) {
     fflush(stderr);
   }
