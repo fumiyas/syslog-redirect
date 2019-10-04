@@ -6,10 +6,7 @@ libdir="@libdir@"
 
 syslog_redirect_so="$libdir/syslog-redirect.@SHARED_LIB_EXT@"
 
-if [ $# -lt 1 ]; then
-  echo "Usage: $0 COMMAND [ARGUMENT ...]" 1>&2
-  exit 1
-fi
+## ======================================================================
 
 case ":$@LD_PRELOAD@:" in
 *":$syslog_redirect_so:"*)
@@ -19,15 +16,122 @@ case ":$@LD_PRELOAD@:" in
   ;;
 esac
 
-if [ x"$1" = x"--sh-init" ]; then
-  echo "@LD_PRELOAD@='$@LD_PRELOAD@'"
-  echo "export @LD_PRELOAD@"
-  if [ -n "@DYLD_FORCE_FLAT_NAMESPACE@" ]; then
-    echo "@DYLD_FORCE_FLAT_NAMESPACE@=1"
-    echo "export @DYLD_FORCE_FLAT_NAMESPACE@"
+## ======================================================================
+
+pdie() { echo "$0: ERROR: ${1-}" 1>&2; exit "${2-1}"; }
+
+getopts_want_arg()
+{
+  if [[ $# -lt 2 ]]; then
+    pdie "Option requires an argument: $1"
   fi
-  exit 0
+  if [[ -n ${3:+set} ]]; then
+    if [[ $2 =~ $3 ]]; then
+      : OK
+    else
+      pdie "Invalid value for option: $1: $2"
+    fi
+  fi
+  if [[ -n ${4:+set} ]]; then
+    if [[ $2 =~ $4 ]]; then
+      pdie "Invalid value for option: $1: $2"
+    fi
+  fi
+}
+
+while [[ $# -gt 0 ]]; do
+  opt="$1"; shift
+
+  if [[ -z "${opt##-[!-]?*}" ]]; then
+    set -- "-${opt#??}" ${1+"$@"}
+    opt="${opt%${1#-}}"
+  fi
+  if [[ -z "${opt##--*=*}" ]]; then
+    set -- "${opt#--*=}" ${1+"$@"}
+    opt="${opt%%=*}"
+  fi
+
+  case "$opt" in
+  --sh-init)
+    echo "@LD_PRELOAD@='$@LD_PRELOAD@'"
+    echo "export @LD_PRELOAD@"
+    if [ -n "@DYLD_FORCE_FLAT_NAMESPACE@" ]; then
+      echo "@DYLD_FORCE_FLAT_NAMESPACE@=1"
+      echo "export @DYLD_FORCE_FLAT_NAMESPACE@"
+    fi
+    exit 0
+    ;;
+  -l|--log-level)
+    getopts_want_arg "$opt" ${1+"$1"} '^[0-7]$'
+    SYSLOG_REDIRECT_LOG_LEVEL="$1"; shift
+    export SYSLOG_REDIRECT_LOG_LEVEL
+    ;;
+  --timestamp)
+    ## FIXME: Not implemented yet
+    SYSLOG_REDIRECT_PRINT_TIMESTAMP='set'
+    export SYSLOG_REDIRECT_PRINT_TIMESTAMP
+    ;;
+  --identity)
+    SYSLOG_REDIRECT_PRINT_IDENTITY='set'
+    export SYSLOG_REDIRECT_PRINT_IDENTITY
+    ;;
+  --facility)
+    SYSLOG_REDIRECT_PRINT_FACILITY='set'
+    export SYSLOG_REDIRECT_PRINT_FACILITY
+    ;;
+  --level)
+    SYSLOG_REDIRECT_PRINT_LEVEL='set'
+    export SYSLOG_REDIRECT_PRINT_LEVEL
+    ;;
+  --all)
+    SYSLOG_REDIRECT_PRINT_IDENTITY='set'
+    export SYSLOG_REDIRECT_PRINT_IDENTITY
+    SYSLOG_REDIRECT_PRINT_FACILITY='set'
+    export SYSLOG_REDIRECT_PRINT_FACILITY
+    SYSLOG_REDIRECT_PRINT_LEVEL='set'
+    export SYSLOG_REDIRECT_PRINT_LEVEL
+    ;;
+  -a|--append-lf)
+    SYSLOG_REDIRECT_APPEND_LF='set'
+    export SYSLOG_REDIRECT_APPEND_LF
+    ;;
+  --)
+    break
+    ;;
+  -*)
+    pdie "Invalid option: $opt"
+    ;;
+  *)
+    set -- "$opt" ${1+"$@"}
+    break
+    ;;
+  esac
+done
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 [OPTIONS] COMMAND [ARGUMENT ...]" 1>&2
+  echo
+  echo "Options:"
+  echo " -l, --log-level LEVEL"
+  echo "    Specify log level"
+  echo "    Default: 4 (LOG_WARNING)"
+  echo " --identity"
+  echo "    Print identity string to log"
+  echo " --facility"
+  echo "    Print facility string to log"
+  echo " --level"
+  echo "    Print log level string to log"
+  echo " --all"
+  echo "    Print identity, facility and log level string to log"
+  exit 1
 fi
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 COMMAND [ARGUMENT ...]" 1>&2
+  exit 1
+fi
+
+## ======================================================================
 
 export @LD_PRELOAD@
 if [ -n "@DYLD_FORCE_FLAT_NAMESPACE@" ]; then

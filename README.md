@@ -44,19 +44,22 @@ $ LD_PRELOAD=/usr/local/lib/syslog-redirect.so syslog-aware-command
 or:
 
 ```console
-$ /usr/local/bin/syslog-redirect syslog-aware-command
-...
-```
+$ /usr/local/bin/syslog-redirect
+Usage: /usr/local/bin/syslog-redirect [OPTIONS] COMMAND [ARGUMENT ...]
 
-Run with some options:
-
-```console
-$ SYSLOG_REDIRECT_LOG_LEVEL=7 \
-  SYSLOG_REDIRECT_PRINT_IDENTITY=set \
-  SYSLOG_REDIRECT_PRINT_FACILITY=set \
-  SYSLOG_REDIRECT_PRINT_LEVEL=set \
-  SYSLOG_REDIRECT_APPEND_LF=set \
-  /usr/local/bin/syslog-redirect syslog-aware-command
+Options:
+ -l, --log-level LEVEL
+    Specify log level
+    Default: 4 (LOG_WARNING)
+ --identity
+    Print identity string to log
+ --facility
+    Print facility string to log
+ --level
+    Print log level string to log
+ --all
+    Print identity, facility and log level string to log
+$ /usr/local/bin/syslog-redirect --all syslog-aware-command
 ...
 ```
 
