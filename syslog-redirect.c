@@ -75,7 +75,7 @@ static const char *facility_string(int facility)
 static const char *level_string(int level)
 {
   if (level == LOG_EMERG) {
-    return "EMERG";
+    return "EMERGENCY";
   } else if (level == LOG_ALERT) {
     return "ALERT";
   } else if (level == LOG_CRIT) {
@@ -87,7 +87,7 @@ static const char *level_string(int level)
   } else if (level == LOG_NOTICE) {
     return "NOTICE";
   } else if (level == LOG_INFO) {
-    return "INFO";
+    return "INFORMATION";
   } else if (level == LOG_DEBUG) {
     return "DEBUG";
   }
