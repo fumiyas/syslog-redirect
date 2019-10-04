@@ -114,7 +114,7 @@ static void init(const char *ident, int option, int facility)
     Facility = facility_string(facility);
   }
   
-
+  // FIXME: PrintTimestampP = getenv("SYSLOG_REDIRECT_PRINT_TIMESTAMP");
   PrintLevelP = getenv("SYSLOG_REDIRECT_PRINT_LEVEL");
   AppendLFP = getenv("SYSLOG_REDIRECT_APPEND_LF");
   FlushLogP = getenv("SYSLOG_REDIRECT_FLUSH_LOG");
