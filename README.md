@@ -63,6 +63,18 @@ $ /usr/local/bin/syslog-redirect --log-level 7 --print-all syslog-aware-command
 ...
 ```
 
+Environment Variables
+---------------------------------------------------------------------
+
+* `SYSLOG_REDIRECT_LOG_LEVEL`
+    * Specify log level
+* `SYSLOG_REDIRECT_PRINT_IDENTITY`
+    * Print identity string to log if set
+* `SYSLOG_REDIRECT_PRINT_FACILITY`
+    * Print facility string to log if set
+* `SYSLOG_REDIRECT_PRINT_LEVEL`
+    * Print log level string to log if set
+
 Note
 ---------------------------------------------------------------------
 
