@@ -59,7 +59,7 @@ Options:
     Print log level string to log
  -a, --print-all
     Print identity, facility and log level string to log
-$ /usr/local/bin/syslog-redirect --log-level 7 --all syslog-aware-command
+$ /usr/local/bin/syslog-redirect --log-level 7 --print-all syslog-aware-command
 ...
 ```
 
