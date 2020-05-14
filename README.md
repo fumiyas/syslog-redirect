@@ -66,7 +66,7 @@ $ /usr/local/bin/syslog-redirect --log-level 7 --all syslog-aware-command
 Note
 ---------------------------------------------------------------------
 
-  * If a target command does not call `openlog`(3) before `syslog`(3),
-    all `$SYSLOG_REDIRECT_*` options do NOT function.
-  * Some `logger`(1) implementations do NOT use `syslog`(3) function,
-    thus `syslog-redirect` does not affect it.
+* If a target command does not call `openlog`(3) before `syslog`(3),
+  all `$SYSLOG_REDIRECT_*` options do NOT function.
+* Some `logger`(1) implementations do NOT use `syslog`(3) function,
+  thus `syslog-redirect` does not affect it.
