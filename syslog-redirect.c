@@ -125,10 +125,8 @@ void openlog(const char *ident, int option, int facility)
   init(ident, option, facility);
 }
 
-void syslog(int priority, const char *format, ...)
+void vsyslog(int priority, const char *format, va_list arg_ptr)
 {
-  va_list arg_ptr;
-
   if ((priority & LOG_PRIMASK) > Level) {
     return;
   }
@@ -154,9 +152,7 @@ void syslog(int priority, const char *format, ...)
     fputs(": ", stderr);
   }
 
-  va_start(arg_ptr, format);
   (void)vfprintf(stderr, format, arg_ptr);
-  va_end(arg_ptr);
 
   if (AppendLFP) {
     fputc('\n', stderr);
@@ -164,4 +160,13 @@ void syslog(int priority, const char *format, ...)
   if (FlushLogP) {
     fflush(stderr);
   }
+}
+
+void syslog(int priority, const char *format, ...)
+{
+  va_list arg_ptr;
+
+  va_start(arg_ptr, format);
+  vsyslog(priority, format, arg_ptr);
+  va_end(arg_ptr);
 }
