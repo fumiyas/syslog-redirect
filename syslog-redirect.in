@@ -61,29 +61,29 @@ while [[ $# -gt 0 ]]; do
     fi
     exit 0
     ;;
-  -l|--log-level)
+  --log-level)
     getopts_want_arg "$opt" ${1+"$1"} '^[0-7]$'
     SYSLOG_REDIRECT_LOG_LEVEL="$1"; shift
     export SYSLOG_REDIRECT_LOG_LEVEL
     ;;
-  --timestamp)
+  -t|--print-timestamp)
     ## FIXME: Not implemented yet
     SYSLOG_REDIRECT_PRINT_TIMESTAMP='set'
     export SYSLOG_REDIRECT_PRINT_TIMESTAMP
     ;;
-  --identity)
+  -i|--print-identity)
     SYSLOG_REDIRECT_PRINT_IDENTITY='set'
     export SYSLOG_REDIRECT_PRINT_IDENTITY
     ;;
-  --facility)
+  -f|--print-facility)
     SYSLOG_REDIRECT_PRINT_FACILITY='set'
     export SYSLOG_REDIRECT_PRINT_FACILITY
     ;;
-  --level)
+  -l|--print-level)
     SYSLOG_REDIRECT_PRINT_LEVEL='set'
     export SYSLOG_REDIRECT_PRINT_LEVEL
     ;;
-  --all)
+  -a|--print-all)
     SYSLOG_REDIRECT_PRINT_IDENTITY='set'
     export SYSLOG_REDIRECT_PRINT_IDENTITY
     SYSLOG_REDIRECT_PRINT_FACILITY='set'
@@ -112,16 +112,16 @@ if [ $# -lt 1 ]; then
   echo "Usage: $0 [OPTIONS] COMMAND [ARGUMENT ...]" 1>&2
   echo
   echo "Options:"
-  echo " -l, --log-level LEVEL"
+  echo " --log-level LEVEL"
   echo "    Specify log level"
   echo "    Default: 4 (LOG_WARNING)"
-  echo " --identity"
+  echo " -i, --print-identity"
   echo "    Print identity string to log"
-  echo " --facility"
+  echo " -f, --print-facility"
   echo "    Print facility string to log"
-  echo " --level"
+  echo " -l, --print-level"
   echo "    Print log level string to log"
-  echo " --all"
+  echo " -a, --print-all"
   echo "    Print identity, facility and log level string to log"
   exit 1
 fi
