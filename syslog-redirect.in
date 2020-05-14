@@ -39,6 +39,8 @@ getopts_want_arg()
   fi
 }
 
+help_p=
+
 while [[ $# -gt 0 ]]; do
   opt="$1"; shift
 
@@ -52,6 +54,9 @@ while [[ $# -gt 0 ]]; do
   fi
 
   case "$opt" in
+  --help)
+    help_p='set'
+    ;;
   --sh-init)
     echo "@LD_PRELOAD@='$@LD_PRELOAD@'"
     echo "export @LD_PRELOAD@"
@@ -108,7 +113,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [ $# -lt 1 ]; then
+if [ $# -lt 1 ] || [ -n "$help_p" ]; then
   echo "Usage: $0 [OPTIONS] COMMAND [ARGUMENT ...]" 1>&2
   echo
   echo "Options:"
