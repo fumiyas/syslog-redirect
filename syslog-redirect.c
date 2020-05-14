@@ -1,4 +1,7 @@
 /*
+ * Copyright (c) 2019-2020 SATOH Fumiyasu @ OSS Technology Corp., Japan
+ * License: BSD-like (2-clause)
+ *
  * Permission to use, copy, modify, and distribute this software
  * for any purpose and without fee is hereby granted. The author
  * disclaims all warranties with regard to this software.

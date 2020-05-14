@@ -1,7 +1,7 @@
 Preloadable library to redirect syslog(3) output to stderr
 ======================================================================
 
-  * Copyright (c) 2019 SATOH Fumiyasu @ OSS Technology Corp., Japan
+  * Copyright (c) 2019-2020 SATOH Fumiyasu @ OSS Technology Corp., Japan
   * License: BSD-like (2-clause)
   * URL: <https://GitHub.com/fumiyas/syslog-redirect>
   * Twitter: <https://twitter.com/satoh_fumiyasu>
