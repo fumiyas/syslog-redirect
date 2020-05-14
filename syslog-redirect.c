@@ -170,3 +170,19 @@ void syslog(int priority, const char *format, ...)
   vsyslog(priority, format, arg_ptr);
   va_end(arg_ptr);
 }
+
+#ifdef __GLIBC__
+void __vsyslog_chk(int priority, int flag, const char *format, va_list arg_ptr)
+{
+  vsyslog(priority, format, arg_ptr);
+}
+
+void __syslog_chk(int priority, int flag, const char *format, ...)
+{
+  va_list arg_ptr;
+
+  va_start(arg_ptr, format);
+  vsyslog(priority, format, arg_ptr);
+  va_end(arg_ptr);
+}
+#endif
